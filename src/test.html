@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script src="../enum/enum.js"></script>
+<script src="../entity/account.js"></script>
+<script src="../entity/customer.js"></script>
+<script src="../entity/transaction.js"></script>
+<script src="../entity/bank.js"></script>
+<script>
+  let rew1 = new Account("111111111", "rew1", AccountType.SAVINGS);
+  let rew2 = new Account("222222222", "rew2", AccountType.CHECKING);
+
+  let son1 = new Account("333333333", "rew52", AccountType.SAVINGS);
+  let son2 = new Account("444444444", "son", AccountType.CHECKING);
+
+  let cus1 = new Customer(1,"Nguyen Cong Dung");
+  cus1.addAccount(rew1);
+  cus1.addAccount(rew2);
+
+  let cus2 = new Customer(2,"Nguyen Cong Son");
+  cus2.addAccount(son1);
+  cus2.addAccount(son2);
+
+  // let bank = new Bank();
+  // bank.addCustomer(cus1);
+  // bank.addCustomer(cus2);
+  //
+  // // Hiển thị danh sách khách hàng
+  // bank.displayCustomers();
+  //
+  // // Thực hiện giao dịch chuyển tiền
+  // bank.transfer(cus1, cus2, 30000);
+  //
+  // // Hiển thị lịch sử giao dịch
+  // bank.displayTransactions();
+
+</script>
+</body>
+</html>
