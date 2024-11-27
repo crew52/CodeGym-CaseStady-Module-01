@@ -74,7 +74,7 @@ class Bank{
         fromAccount.withdraw(amount);
         toAccount.deposit(amount);
 
-        createAndSaveTransaction(this._transactions, TypeTransaction.TRANSFER, amount);
+        createAndSaveTransaction(this._transactions, TypeTransaction.TRANSFER, amount, "T");
 
         console.log(`Chuyển tiền thành công từ tài khoản ${fromAccountNumber} đến tài khoản ${toAccountNumber}. Số tiền: ${amount}`);
     }

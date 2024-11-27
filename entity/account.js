@@ -44,24 +44,30 @@ class Account {
     }
 
     // GUI TIEN VAO TK
-    deposit(amount){
+    deposit(amount, transactions) {
         if (amount > 0) {
             this._balance += amount;
-            console.log(`Da gui ${amount}. So du tai khoan hien tai ${this._balance}`)
-        }else {
-            console.log("So tien khong phu hop");
+            console.log(`Đã gửi ${amount}. Số dư tài khoản hiện tại: ${this._balance}`);
+
+            // Lưu giao dịch
+            createAndSaveTransaction(transactions, TypeTransaction.DEPOSIT, amount, "D");
+        } else {
+            console.log("Số tiền không phù hợp");
         }
     }
 
     // RUT TIEN TU TK
-    withdraw(amount){
+    withdraw(amount, transactions) {
         if (amount > this._balance) {
-            console.log("So du khong du");
-        }else if(amount <= 0){
-            console.log("So tien khong phu hop");
-        }else {
+            console.log("Số dư không đủ");
+        } else if (amount <= 0) {
+            console.log("Số tiền không phù hợp");
+        } else {
             this._balance -= amount;
-            console.log(`Da rut ${amount}, so du con lai: ${this._balance}`);
+            console.log(`Đã rút ${amount}, số dư còn lại: ${this._balance}`);
+
+            // Lưu giao dịch
+            createAndSaveTransaction(transactions, TypeTransaction.WITHDRAW, amount,"W");
         }
     }
 

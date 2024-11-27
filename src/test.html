@@ -10,6 +10,7 @@
 <script src="../entity/customer.js"></script>
 <script src="../entity/transaction.js"></script>
 <script src="../entity/bank.js"></script>
+<script src="../service/service.js"></script>
 <script>
   let rew1 = new Account("111111111", "rew1", AccountType.SAVINGS);
   let rew2 = new Account("222222222", "rew2", AccountType.CHECKING);
@@ -25,9 +26,9 @@
   cus2.addAccount(son1);
   cus2.addAccount(son2);
 
-  // let bank = new Bank();
-  // bank.addCustomer(cus1);
-  // bank.addCustomer(cus2);
+  let bank = new Bank();
+  bank.addCustomer(cus1);
+  bank.addCustomer(cus2);
   //
   // // Hiển thị danh sách khách hàng
   // bank.displayCustomers();
@@ -37,6 +38,12 @@
   //
   // // Hiển thị lịch sử giao dịch
   // bank.displayTransactions();
+
+  // Nạp tiền vào tài khoản
+  rew1.deposit(50000, bank._transactions);
+
+  // Rút tiền từ tài khoản
+  rew1.withdraw(20000, bank._transactions);
 
 </script>
 </body>

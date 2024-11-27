@@ -12,8 +12,8 @@ function findAccountByNumber(customers, accountNumber) {
 }
 
 // Tạo và lưu giao dịch
-function createAndSaveTransaction(transactions, type, amount) {
-    const transactionId = `T${Date.now()}`;
+function createAndSaveTransaction(transactions, type, amount, prefix) {
+    const transactionId = `${prefix}${Date.now()}`; // Tạo mã giao dịch động dựa trên prefix
     const transaction = new Transaction(transactionId, type, amount);
     transactions.push(transaction);
     transaction.record(); // Ghi log hoặc lưu giao dịch nếu cần
