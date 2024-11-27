@@ -41,23 +41,13 @@ class Bank{
 
     // Thực hiện chuyển tiền giữa hai tài khoản dựa trên số tài khoản
     transfer(fromAccountNumber, toAccountNumber, amount) {
-        // Tìm tài khoản gửi tiền
-        let fromAccount = this._customers
-            .flatMap(customer => customer.getAccounts())
-            .find(account => account._accountNumber === fromAccountNumber);
-
-        // Tìm tài khoản nhận tiền
-        let toAccount = this._customers
-            .flatMap(customer => customer.getAccounts())
-            .find(account => account._accountNumber === toAccountNumber);
-
-        // Kiểm tra tài khoản gửi tiền
+        let fromAccount = findAccountByNumber(fromAccountNumber);
         if (!fromAccount) {
             console.log(`Không tìm thấy tài khoản gửi tiền với số tài khoản: ${fromAccountNumber}`);
             return;
         }
 
-        // Kiểm tra tài khoản nhận tiền
+        let toAccount = findAccountByNumber(toAccountNumber);
         if (!toAccount) {
             console.log(`Không tìm thấy tài khoản nhận tiền với số tài khoản: ${toAccountNumber}`);
             return;
@@ -84,15 +74,8 @@ class Bank{
         fromAccount.withdraw(amount);
         toAccount.deposit(amount);
 
-        // Tạo và lưu giao dịch
-        let transaction = new Transaction(
-            `T${Date.now()}`,
-            TypeTransaction.TRANSFER,
-            amount
-        );
-        this._transactions.push(transaction);
+        createAndSaveTransaction(this._transactions, TypeTransaction.TRANSFER, amount);
 
-        transaction.record();
         console.log(`Chuyển tiền thành công từ tài khoản ${fromAccountNumber} đến tài khoản ${toAccountNumber}. Số tiền: ${amount}`);
     }
 
