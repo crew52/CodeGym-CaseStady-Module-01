@@ -19,3 +19,23 @@ function  showCustomers() {
         customerList.appendChild(listItem);
     })
 }
+// show customer form
+function showCustomerForm() {
+    const form = document.getElementById('customer-form');
+    // Kiểm tra trạng thái hiển thị hiện tại của form
+    if (form.style.display === 'none' || form.style.display === '') {
+        form.style.display = 'block'; // Hiển thị form
+    } else {
+        form.style.display = 'none'; // Ẩn form
+    }
+}
+
+// Thêm khách hàng mới
+function addCustomer() {
+    const customerName = document.getElementById("customer-name").value;
+    const customerId = `C${Date.now()}`;
+    const newCustomer = new Customer(customerId, customerName);
+    bank.addCustomer(newCustomer);
+    document.getElementById("customer-name").value = ""; // Xóa nội dung ô nhập
+    showCustomers();
+}
