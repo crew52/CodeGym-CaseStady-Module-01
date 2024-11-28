@@ -23,7 +23,7 @@ function findAccountByNumber(customersOrCustomer, accountNumber) {
 
 
 // Tạo và lưu giao dịch
-function createAndSaveTransaction(transactions, type, amount, fromAccount, toAccount, prefix) {
+function createAndSaveTransaction(transactions, type, amount, prefix) {
     if (!transactions) {
         transactions = []; // Khởi tạo nếu chưa tồn tại
     }
@@ -32,7 +32,7 @@ function createAndSaveTransaction(transactions, type, amount, fromAccount, toAcc
     const transactionId = `${prefix}${Date.now()}`;
 
     // Tạo đối tượng giao dịch mới với các thông tin đầy đủ
-    const transaction = new Transaction(transactionId, type, amount, fromAccount, toAccount);
+    const transaction = new Transaction(transactionId, type, amount);
 
     // Lưu giao dịch vào danh sách
     transactions.push(transaction);
