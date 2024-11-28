@@ -23,16 +23,27 @@ function findAccountByNumber(customersOrCustomer, accountNumber) {
 
 
 // Tạo và lưu giao dịch
-function createAndSaveTransaction(transactions, type, amount, prefix) {
+function createAndSaveTransaction(transactions, type, amount, fromAccount, toAccount, prefix) {
     if (!transactions) {
         transactions = []; // Khởi tạo nếu chưa tồn tại
     }
-    const transactionId = `${prefix}${Date.now()}`; // Tạo mã giao dịch động dựa trên prefix
-    const transaction = new Transaction(transactionId, type, amount);
+
+    // Tạo mã giao dịch động dựa trên prefix
+    const transactionId = `${prefix}${Date.now()}`;
+
+    // Tạo đối tượng giao dịch mới với các thông tin đầy đủ
+    const transaction = new Transaction(transactionId, type, amount, fromAccount, toAccount);
+
+    // Lưu giao dịch vào danh sách
     transactions.push(transaction);
-    transaction.record(); // Ghi log hoặc lưu giao dịch nếu cần
+
+    // Ghi log hoặc lưu giao dịch nếu cần
+    transaction.record();
+
+    // Trả về đối tượng giao dịch đã được lưu
     return transaction;
 }
+
 
 //
 function createInterestTransaction(account, interest, transactions) {

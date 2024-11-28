@@ -2,7 +2,7 @@
 const bank = new Bank();
 // Khởi tạo danh sách giao dịch
 const transactions = [];
-
+//
 let cus1 = new Customer("1","MCK");
 let cus2 = new Customer("2","Son Tung MTP");
 bank.addCustomer(cus1);
@@ -179,6 +179,7 @@ function transferMoney() {
 
         // If transfer was successful
         if (transferSuccess) {
+            const transaction = createAndSaveTransaction(bank._transactions, TypeTransaction.TRANSFER, amount, fromAccount, toAccount, "T");
             messageElement.textContent = `Chuyển tiền thành công từ tài khoản ${fromAccount} đến tài khoản ${toAccount}. Số tiền: ${amount} VND.`;
             messageElement.style.color = "green"; // Green for success message
             showTransactions();  // Display the transactions
@@ -195,13 +196,56 @@ function transferMoney() {
 
 }
 
-// Hiển thị lịch sử giao dịch
 function showTransactions() {
     const transactionList = document.getElementById("transaction-list");
     transactionList.innerHTML = ""; // Xóa danh sách cũ
+
+    // Duyệt qua các giao dịch và hiển thị
     bank._transactions.forEach(transaction => {
         const listItem = document.createElement("li");
-        listItem.textContent = `${transaction.type}: ${transaction.amount} VND (${transaction.timestamp})`;
+        const transactionData = transaction.display();  // Lấy thông tin giao dịch
+
+        // Kiểm tra xem thông tin giao dịch có đầy đủ không
+        if (transactionData && transactionData.transactionId) {
+            // Chỉ hiển thị ID giao dịch
+            const transactionIdElement = document.createElement("span");
+            transactionIdElement.textContent = `Mã giao dịch: ${transactionData.transactionId}`;
+            transactionIdElement.style.cursor = "pointer"; // Thêm con trỏ chuột khi hover
+            listItem.appendChild(transactionIdElement);
+
+            // Tạo một div để chứa chi tiết giao dịch (ẩn ban đầu)
+            const detailElement = document.createElement("div");
+            detailElement.style.display = "none"; // Ẩn chi tiết ban đầu
+            detailElement.innerHTML = `
+                <strong>ID giao dịch:</strong> ${transactionData.transactionId}<br>
+                <strong>Loại giao dịch:</strong> ${transactionData.type}<br>
+                <strong>Người Gửi:</strong> ${transactionData.fromAccount}<br>
+                <strong>Số tiền:</strong> ${transactionData.amount} VND<br>
+                <strong>Người Nhận:</strong> ${transactionData.toAccount}<br>
+                <strong>Thời gian:</strong> ${transactionData.timestamp}
+            `;
+            listItem.appendChild(detailElement);
+
+            // Thêm sự kiện click để hiển thị hoặc ẩn chi tiết
+            transactionIdElement.addEventListener("click", function() {
+                // Kiểm tra nếu chi tiết đang ẩn hoặc hiển thị
+                if (detailElement.style.display === "none") {
+                    detailElement.style.display = "block"; // Hiển thị chi tiết
+                } else {
+                    detailElement.style.display = "none"; // Ẩn chi tiết
+                }
+            });
+        } else {
+            listItem.textContent = "Thông tin giao dịch không đầy đủ.";
+        }
+
         transactionList.appendChild(listItem);
     });
 }
+
+
+
+
+
+
+

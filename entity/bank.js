@@ -66,7 +66,7 @@ class Bank{
         toAccount.deposit(amount, this._transactions, true); // Chỉ gọi deposit 1 lần
 
         // Tạo và lưu giao dịch chuyển tiền
-        createAndSaveTransaction(this._transactions, TypeTransaction.TRANSFER, amount, "T");
+        createAndSaveTransaction(this._transactions, TypeTransaction.TRANSFER, amount, fromAccount, toAccount,"T");
 
         console.log(`Chuyển tiền thành công từ tài khoản ${fromAccountNumber} đến tài khoản ${toAccountNumber}. Số tiền: ${amount}`);
         console.log(`Số dư tài khoản gửi ${fromAccountNumber}: ${fromAccount.getBalance()} VND`);
