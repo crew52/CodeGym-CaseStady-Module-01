@@ -1,11 +1,33 @@
 // Khởi tạo dữ liệu mẫu
 const bank = new Bank();
+// Khởi tạo danh sách giao dịch
+const transactions = [];
+
 let cus1 = new Customer("1","MCK");
 let cus2 = new Customer("2","Son Tung MTP");
-let cus3 = new Customer("3","LowG");
 bank.addCustomer(cus1);
 bank.addCustomer(cus2);
-bank.addCustomer(cus3);
+
+// let rew1 = new Account("111111111", "rew1", AccountType.SAVINGS);
+let rew2 = new Account("22", "rew2", AccountType.CHECKING);
+//
+// let son1 = new Account("333333333", "rew52", AccountType.SAVINGS);
+let son2 = new Account("44", "son", AccountType.CHECKING);
+//
+// cus1.addAccount(rew1);
+cus1.addAccount(rew2);
+// cus2.addAccount(son1);
+cus2.addAccount(son2);
+
+rew2.deposit(100000, transactions);
+son2.deposit(100000, transactions);
+
+// Chuyển tiền giữa các tài khoản
+// bank.transfer('222222222', '444444444', 50000);
+bank.transfer('44', '22', 10000);
+
+// Hiển thị giao dịch
+bank.displayTransactions();
 
 showCustomers();
 // display danh sach customer
@@ -142,3 +164,44 @@ function updateAccountDropdown(customer) {
         }
     });
 }
+
+// Chuyển tiền giữa hai tài khoản
+function transferMoney() {
+    const fromAccount = document.getElementById("from-account").value;
+    const toAccount = document.getElementById("to-account").value;
+    const amount = parseFloat(document.getElementById("transaction-amount").value);
+    const messageElement = document.getElementById("transaction-message"); // Get message element
+
+    // Check if input values are valid
+    if (fromAccount && toAccount && amount > 0) {
+        // Call the transfer method and get the result
+        const transferSuccess = bank.transfer(fromAccount, toAccount, amount);
+
+        // If transfer was successful
+        if (transferSuccess) {
+            messageElement.textContent = `Chuyển tiền thành công từ tài khoản ${fromAccount} đến tài khoản ${toAccount}. Số tiền: ${amount} VND.`;
+            messageElement.style.color = "green"; // Green for success message
+            showTransactions();  // Display the transactions
+        } else {
+            // If transfer failed (e.g., insufficient funds or other errors)
+            messageElement.textContent = "Giao dịch không thành công. Vui lòng kiểm tra lại thông tin!";
+            messageElement.style.color = "red"; // Red for error message
+        }
+    } else {
+        // If required input is missing
+        messageElement.textContent = "Vui lòng nhập đầy đủ thông tin hợp lệ!";
+        messageElement.style.color = "red"; // Red for error message
+    }
+
+}
+
+// // Hiển thị lịch sử giao dịch
+// function showTransactions() {
+//     const transactionList = document.getElementById("transaction-list");
+//     transactionList.innerHTML = ""; // Xóa danh sách cũ
+//     bank._transactions.forEach(transaction => {
+//         const listItem = document.createElement("li");
+//         listItem.textContent = `${transaction.type}: ${transaction.amount} VND (${transaction.timestamp})`;
+//         transactionList.appendChild(listItem);
+//     });
+// }

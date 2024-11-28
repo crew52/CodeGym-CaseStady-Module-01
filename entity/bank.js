@@ -41,42 +41,35 @@ class Bank{
 
     // Thực hiện chuyển tiền giữa hai tài khoản dựa trên số tài khoản
     transfer(fromAccountNumber, toAccountNumber, amount) {
-        let fromAccount = findAccountByNumber(fromAccountNumber);
+        let fromAccount = findAccountByNumber(this._customers, fromAccountNumber);
         if (!fromAccount) {
             console.log(`Không tìm thấy tài khoản gửi tiền với số tài khoản: ${fromAccountNumber}`);
-            return;
+            return false; // Return false if fromAccount is not found
         }
 
-        let toAccount = findAccountByNumber(toAccountNumber);
+        let toAccount = findAccountByNumber(this._customers, toAccountNumber);
         if (!toAccount) {
             console.log(`Không tìm thấy tài khoản nhận tiền với số tài khoản: ${toAccountNumber}`);
-            return;
+            return false; // Return false if toAccount is not found
         }
 
-        // Kiểm tra loại tài khoản
-        if (fromAccount._accountType === AccountType.SAVINGS) {
-            console.log(`Tài khoản gửi tiền ${fromAccount._accountNumber} thuộc loại tiết kiệm, không thể chuyển tiền.`);
-            return;
+        // Check if the sender account has sufficient balance
+        if (fromAccount.getBalance() < amount) {
+            console.log(`Tài khoản ${fromAccountNumber} không đủ số dư để thực hiện giao dịch.`);
+            return false; // Return false if insufficient balance
         }
 
-        if (toAccount._accountType === AccountType.SAVINGS) {
-            console.log(`Tài khoản nhận tiền ${toAccount._accountNumber} thuộc loại tiết kiệm, không thể nhận tiền.`);
-            return;
-        }
-
-        // Kiểm tra số dư tài khoản gửi tiền
-        if (fromAccount._balance < amount) {
-            console.log(`Tài khoản ${fromAccount._accountNumber} không đủ số dư để thực hiện giao dịch.`);
-            return;
-        }
-
-        // Thực hiện giao dịch
+        // Perform the transfer
         fromAccount.withdraw(amount);
         toAccount.deposit(amount);
 
+        // Create and save the transaction
         createAndSaveTransaction(this._transactions, TypeTransaction.TRANSFER, amount, "T");
 
         console.log(`Chuyển tiền thành công từ tài khoản ${fromAccountNumber} đến tài khoản ${toAccountNumber}. Số tiền: ${amount}`);
+        console.log(`Số dư tài khoản gửi ${fromAccountNumber}: ${fromAccount.getBalance()} VND`);
+        console.log(`Số dư tài khoản nhận ${toAccountNumber}: ${toAccount.getBalance()} VND`);
+        return true; // Return true if the transfer was successful
     }
 
     // Hiển thị danh sách khách hàng
