@@ -119,7 +119,11 @@
   <div id="account-actions" class="hidden">
     <button onclick="showAccountForm()">Thêm Tài Khoản</button>
     <div id="account-form" class="hidden">
-      <input type="text" id="account-type" placeholder="Loại tài khoản (SAVINGS/CHECKING)">
+      <label for="account-type">Chọn Loại Tài Khoản:</label>
+      <select id="account-type">
+        <option value="CHECKING">Checking</option>
+        <option value="SAVINGS">Savings</option>
+      </select>
       <button onclick="addAccount()">Lưu Tài Khoản</button>
     </div>
     <h3>Danh Sách Tài Khoản</h3>
