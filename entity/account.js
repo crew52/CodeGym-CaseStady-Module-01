@@ -44,32 +44,37 @@ class Account {
     }
 
     // GUI TIEN VAO TK
-    deposit(amount, transactions) {
+    deposit(amount, transactions, isTransfer = false) {
         if (amount > 0) {
-            this._balance += amount;
+            this._balance += amount; // Cập nhật số dư sau khi nạp tiền
             console.log(`Đã gửi ${amount}. Số dư tài khoản hiện tại: ${this._balance}`);
 
-            // Lưu giao dịch
-            createAndSaveTransaction(transactions, TypeTransaction.DEPOSIT, amount, "D");
+            // Lưu giao dịch chỉ khi không phải là giao dịch chuyển tiền
+            if (!isTransfer) {
+                createAndSaveTransaction(transactions, TypeTransaction.DEPOSIT, amount, "D");
+            }
         } else {
             console.log("Số tiền không phù hợp");
         }
     }
 
     // RUT TIEN TU TK
-    withdraw(amount, transactions) {
+    withdraw(amount, transactions, isTransfer = false) {
         if (amount > this._balance) {
             console.log("Số dư không đủ");
         } else if (amount <= 0) {
             console.log("Số tiền không phù hợp");
         } else {
-            this._balance -= amount;
+            this._balance -= amount; // Cập nhật số dư sau khi rút tiền
             console.log(`Đã rút ${amount}, số dư còn lại: ${this._balance}`);
 
-            // Lưu giao dịch
-            createAndSaveTransaction(transactions, TypeTransaction.WITHDRAW, amount,"W");
+            // Lưu giao dịch nếu không phải là giao dịch chuyển tiền
+            if (!isTransfer) {
+                createAndSaveTransaction(transactions, TypeTransaction.WITHDRAW, amount, "W");
+            }
         }
     }
+
 
     // TINH LAI SUAT CHO TK TICH KIEM
     calculateMonthlyInterest(rate, transactions) {

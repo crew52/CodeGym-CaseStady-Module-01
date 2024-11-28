@@ -44,33 +44,37 @@ class Bank{
         let fromAccount = findAccountByNumber(this._customers, fromAccountNumber);
         if (!fromAccount) {
             console.log(`Không tìm thấy tài khoản gửi tiền với số tài khoản: ${fromAccountNumber}`);
-            return false; // Return false if fromAccount is not found
+            return false; // Không tìm thấy tài khoản gửi
         }
 
         let toAccount = findAccountByNumber(this._customers, toAccountNumber);
         if (!toAccount) {
             console.log(`Không tìm thấy tài khoản nhận tiền với số tài khoản: ${toAccountNumber}`);
-            return false; // Return false if toAccount is not found
+            return false; // Không tìm thấy tài khoản nhận
         }
 
-        // Check if the sender account has sufficient balance
+        // Kiểm tra số dư tài khoản gửi
         if (fromAccount.getBalance() < amount) {
             console.log(`Tài khoản ${fromAccountNumber} không đủ số dư để thực hiện giao dịch.`);
-            return false; // Return false if insufficient balance
+            return false; // Nếu tài khoản gửi không đủ số dư
         }
 
-        // Perform the transfer
-        fromAccount.withdraw(amount);
-        toAccount.deposit(amount);
+        // Thực hiện rút tiền từ tài khoản gửi
+        fromAccount.withdraw(amount, this._transactions, true); // Thêm đối số isTransfer để tránh ghi giao dịch Withdraw
 
-        // Create and save the transaction
+        // Chuyển tiền vào tài khoản nhận
+        toAccount.deposit(amount, this._transactions, true); // Chỉ gọi deposit 1 lần
+
+        // Tạo và lưu giao dịch chuyển tiền
         createAndSaveTransaction(this._transactions, TypeTransaction.TRANSFER, amount, "T");
 
         console.log(`Chuyển tiền thành công từ tài khoản ${fromAccountNumber} đến tài khoản ${toAccountNumber}. Số tiền: ${amount}`);
         console.log(`Số dư tài khoản gửi ${fromAccountNumber}: ${fromAccount.getBalance()} VND`);
         console.log(`Số dư tài khoản nhận ${toAccountNumber}: ${toAccount.getBalance()} VND`);
-        return true; // Return true if the transfer was successful
+
+        return true; // Giao dịch thành công
     }
+
 
     // Hiển thị danh sách khách hàng
     displayCustomers() {

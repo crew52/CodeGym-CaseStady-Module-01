@@ -24,10 +24,10 @@ son2.deposit(100000, transactions);
 
 // Chuyển tiền giữa các tài khoản
 // bank.transfer('222222222', '444444444', 50000);
-bank.transfer('44', '22', 10000);
+// bank.transfer('44', '22', 10000);
 
 // Hiển thị giao dịch
-bank.displayTransactions();
+// bank.displayTransactions();
 
 showCustomers();
 // display danh sach customer
@@ -195,13 +195,13 @@ function transferMoney() {
 
 }
 
-// // Hiển thị lịch sử giao dịch
-// function showTransactions() {
-//     const transactionList = document.getElementById("transaction-list");
-//     transactionList.innerHTML = ""; // Xóa danh sách cũ
-//     bank._transactions.forEach(transaction => {
-//         const listItem = document.createElement("li");
-//         listItem.textContent = `${transaction.type}: ${transaction.amount} VND (${transaction.timestamp})`;
-//         transactionList.appendChild(listItem);
-//     });
-// }
+// Hiển thị lịch sử giao dịch
+function showTransactions() {
+    const transactionList = document.getElementById("transaction-list");
+    transactionList.innerHTML = ""; // Xóa danh sách cũ
+    bank._transactions.forEach(transaction => {
+        const listItem = document.createElement("li");
+        listItem.textContent = `${transaction.type}: ${transaction.amount} VND (${transaction.timestamp})`;
+        transactionList.appendChild(listItem);
+    });
+}

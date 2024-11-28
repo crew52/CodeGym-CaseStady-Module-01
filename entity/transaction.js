@@ -8,7 +8,7 @@ class Transaction {
         this._transactionId = transactionId;
         this._type = typeTransaction;
         this._amount = amount;
-        this._timestamp = new Date();
+        this._timestamp = new Date().toLocaleString();
     }
 
     getTransactionId() {
