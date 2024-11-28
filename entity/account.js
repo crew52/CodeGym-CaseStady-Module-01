@@ -11,35 +11,35 @@ class Account {
         this._accountType = accountType; // type (CHECKING/SAVINGS)
     }
 
-    get accountNumber() {
+    getAccountNumber() {
         return this._accountNumber;
     }
 
-    set accountNumber(value) {
+    setAccountNumber(value) {
         this._accountNumber = value;
     }
 
-    get accountHolder() {
+    getAccountHolder() {
         return this._accountHolder;
     }
 
-    set accountHolder(value) {
+    setAccountHolder(value) {
         this._accountHolder = value;
     }
 
-    get balance() {
+    getBalance() {
         return this._balance;
     }
 
-    set balance(value) {
+    setBalance(value) {
         this._balance = value;
     }
 
-    get accountType() {
+    getAccountType() {
         return this._accountType;
     }
 
-    set accountType(value) {
+    setaAccountType(value) {
         this._accountType = value;
     }
 
