@@ -20,3 +20,9 @@ function createAndSaveTransaction(transactions, type, amount, prefix) {
     return transaction;
 }
 
+//
+function createInterestTransaction(account, interest, transactions) {
+    createAndSaveTransaction(transactions, TypeTransaction.INTEREST, interest, "I");
+    console.log(`Lãi suất ${interest} được ghi nhận vào tài khoản ${account._accountNumber}.`);
+}
+

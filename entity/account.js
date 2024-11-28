@@ -72,13 +72,15 @@ class Account {
     }
 
     // TINH LAI SUAT CHO TK TICH KIEM
-    calculateInterest(rate){
-        if (this._accountType === AccountType.SAVINGS && rate > 0){
-            let interest = this._balance * (rate/100);
-            console.log(`Lai xuat duoc tinh: ${interest}`);
+    calculateMonthlyInterest(rate, transactions) {
+        if (this._accountType === AccountType.SAVINGS && rate > 0) {
+            const interest = this._balance * (rate / 100);
+            this._balance += interest; // Cộng lãi vào số dư
+            createInterestTransaction(this, interest, transactions); // Ghi giao dịch
+            console.log(`Lãi suất hàng tháng: ${interest}. Số dư hiện tại: ${this._balance}`);
             return interest;
-        }else {
-            console.log("Tai khoan khong ho tro hoac lai xuat khong phu hop");
+        } else {
+            console.log("Không thể tính lãi suất. Loại tài khoản không hỗ trợ hoặc tỷ lệ không hợp lệ.");
             return 0;
         }
     }
