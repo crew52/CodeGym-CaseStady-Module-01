@@ -39,7 +39,7 @@ class Account {
         return this._accountType;
     }
 
-    setaAccountType(value) {
+    setAccountType(value) {
         this._accountType = value;
     }
 
