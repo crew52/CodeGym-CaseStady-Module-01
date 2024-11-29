@@ -10,6 +10,7 @@
 <script src="../entity/customer.js"></script>
 <script src="../entity/transaction.js"></script>
 <script src="../entity/bank.js"></script>
+<script src="../entity/employee.js"></script>
 <script src="../service/service.js"></script>
 <script>
   let rew1 = new Account("111111111", "rew1", AccountType.SAVINGS);
@@ -44,6 +45,10 @@
 
   // Rút tiền từ tài khoản
   rew1.withdraw(20000, bank._transactions);
+
+  const employee = new Employee(101, "Lê Văn C", "Quản lý giao dịch");
+
+
 
 </script>
 </body>

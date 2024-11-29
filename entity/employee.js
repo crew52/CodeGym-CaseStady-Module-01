@@ -38,10 +38,10 @@ class Employee {
         const customer = bank.findCustomer(customerId); // Gọi phương thức tìm khách hàng từ lớp Bank
         if (customer) {
             console.log(`Thông tin khách hàng (ID: ${customerId}):`);
-            console.log(`Tên: ${customer.name}`);
+            console.log(`Tên: ${customer._customerName}`);
             console.log(`Tài khoản:`);
             customer.getAccounts().forEach(account => {
-                console.log(`- Số tài khoản: ${account.accountNumber}, Loại: ${account.accountType}, Số dư: ${account.balance}`);
+                console.log(`- Số tài khoản: ${account._accountNumber}, Loại: ${account._accountType}, Số dư: ${account._balance}`);
             });
         } else {
             console.log(`Không tìm thấy khách hàng với ID: ${customerId}`);
